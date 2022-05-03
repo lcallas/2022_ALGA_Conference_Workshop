@@ -1,0 +1,559 @@
+---
+title: "Introduction to R for Auditors"
+subtitle: "2022 ALGA Annual Conference Workshop"
+author: "Lisa Callas"
+institute: "City of Edmonton"
+date: "2022/05/04"
+output:
+  xaringan::moon_reader:
+    yolo: false
+    css: xaringan-themer.css
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(
+  base_color = "#1c5253",
+  header_font_google = google_font("Josefin Sans"),
+  text_font_google   = google_font("Montserrat", "300", "300i"),
+  code_font_google   = google_font("Fira Mono")
+)
+
+```
+
+
+# Objectives
+
+  1. Be able to import and conduct basic analytics using your own (simple!) data in RStudio
+  
+  1. Be able to set up a model working paper in RStudio to align to auditing standards
+  
+  1. Be able to create print-worthy visualizations using ggplot2
+
+---
+
+# Introductions
+
+.pull-left[
+### Lisa Callas
+
+Former Internal Auditor with the City of Edmonton
+
+Sr. Human Resources Business Partner
+
+Instructor with NorQuest College
+
+**Tools:**
+- R & RStudio
+- Excel
+- Google Sheets
+- Google Data Studio
+- Database design
+]
+
+.pull-right[
+### Vince Callas
+
+IT Analyst with Alberta Health Services
+
+
+**Tools:**
+- Tableau
+- SQL 
+- General Hardware and Software Support
+]
+---
+# Agenda
+  1. Overview of programming and RStudio
+  
+  1. Planning your analysis and creating an integrated working paper
+  
+  1. Basic data manipulation and visualization using a built-in data set
+  
+  1. Reshaping data sets, working with dates and strings
+  
+  1. Individual project development and support
+  
+---
+class: inverse, center, middle
+
+# Programming & RStudio
+
+---
+# Programming vs. Excel
+
+.pull-left[
+### Telling
+<img src="img/tell.svg" width=300, height = 400>
+
+
+]
+
+.pull-right[
+### Doing
+<img src= "img/doing.svg" width=300, height = 400>
+
+
+]
+
+---
+# Benefits
+- Free
+- Open source
+- Supportive user community
+- Robust learning resources
+
+---
+# R & RStudio
+
+.pull-left[
+### R is the Engine
+<img src="img/engine.svg" width=300, height = 400>
+
+
+]
+
+.pull-right[
+### RStudio is the Dashboard
+<img src= "img/dashboard.svg" width=300, height = 400>
+
+
+]
+---
+# Installation
+
+R: https://www.r-project.org/
+
+RStudio: https://www.rstudio.com/products/rstudio/download/
+
+RStudio Cloud: https://rstudio.cloud/
+
+
+---
+# Navigating RStudio
+
+<img src= "img/navigation.png">
+---
+# Packages
+
+Packages are programming extensions that contain code, data and documentation in a consistent format.
+.pull-left[
+<img src="img/tidyverse.svg" width=300, height = 200>
+]
+<img src="img/dplyr.svg" width=230, height = 200>
+<img src="img/ggplot2.svg" width=150, height = 200>
+<img src="img/stringr.svg" width=150, height = 200>
+<img src="img/lubridate.svg" width=150, height = 200>
+
+
+---
+class: center, middle
+# ...like a book
+
+Think about packages like a book.
+
+To use the information in a book, first you must buy the book (install.package("package_name")), then you have to open it up every time you want to reference anything in it (library(package_name)).
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+---
+class: inverse, center, middle
+
+# Planning Your Analysis and Working Paper
+
+---
+# Directories & Projects
+
+A directory in RStudio is the default location where R will look for your files and save your scripts.  
+
+You can define a working directory to keep all of your files and scripts together in a folder on your computer (in the same way you'd set up a folder to keep related documents together).
+
+Projects are associated with working directories. When you start a new project in RStudio and define it's path, that becomes your working directory for the project where RStudio will look for and save your files.
+
+ 
+### _Activity: Set up a new project_
+---
+
+# R Script
+
+.pull-left[
+### Benefits
+- Miminal set up
+
+- Can be 'called' and reused modularly
+
+- Simple
+]
+
+.pull-right[
+### Challenges
+- All integrated documentation is through #commenting
+
+- Requires re-running each time to see output
+
+]
+---
+# R Markdown
+
+.pull-left[
+### Benefits
+- Commentary, code, and results are integrated into a single document
+
+- Output can be in .pdf, .html, or .doc 
+
+- Can create a fully comprehensive working paper
+]
+
+.pull-right[
+### Challenges
+- Requires some additional planning and set up
+
+- Additional learning curve working with code chunks to ensure the desired output
+
+- Requires some additional troubleshooting for errors and technical problems 'knitting' documents 
+]
+---
+class: center, middle
+### _Activity: Create a a new R Markdown document, and a new script in your project_
+
+Helpful hint: When closing your scripts, save your scripts but **DO NOT SAVE** the workspace.
+---
+# Work Structure & Sequencing
+  - **Sequential processing:** Your code will run in the sequence it is written.
+
+  - **Comments:** Add comments to your code by using #
+  
+  - **Script headers:** Best practice is to include a script header on your R scripts. Rmarkdown documents may not need an explanatory header depending on the design of the working paper.
+  
+  - **Snippets:** You can custom design snippets (little pieces of code or comments) to support consistency in your scripts. These are great shortcuts for script headers and script sections.
+
+  - **Libraries:** Best practice is to include your libraries at the beginning of your code - but this is not required.
+---
+class: left, middle
+### _Activity: Format your R Script_
+- Set up a header snippet
+- Insert a header
+- Install and call libraries
+---
+class: inverse, center, middle
+
+# Tidyverse
+<img src="img/tidyverse.svg" height= 500>
+---
+class: inverse, center, middle
+
+# Data Manipulation
+<img src="img/dplyr.svg" height= 500>
+---
+# Tidy Data
+<img src="img/tidydata_1.jpg" height= 400>
+
+.footnote[
+Artwork by @alisonhorst
+]
+
+---
+class: center, middle
+
+<img src="img/tidydata_3.jpg" height= 500>
+
+.footnote[
+Artwork by @alisonhorst
+]
+---
+# Built-in Datasets
+
+- Base R has a number of built in datasets.
+
+- Additionally, almost all packages come with built in datasets.
+
+- Often the online help for using functions is demonstrated on these built in datasets so that you can reproduce the same demo in your own script and get identical results.
+
+- Built-in data has typically be cleansed and is tidy.
+---
+class:  center, middle
+### *Activity: List the Built-in Datasets & Call a Few to Explore*
+
+```{r eval=FALSE}
+data()
+
+Titanic
+iris
+mtcars
+```
+
+---
+# Data Structures and Types
+
+.pull-left[
+**Structures:**
+- **vector**: a sequence of data elements of the same basic type
+- **data frame**: a table or 2 dimensional array-like structure
+- **factor**: a variable used to categorize data with a limited number of values
+- **list**: objects that contain elements of different types
+- **matrix**: 2 dimensional, homogenous data structure. Single data type
+]
+.pull-right[
+**Types:**
+- character
+- numeric
+- integer
+- logical
+- complex
+]
+
+Objects may have attributes such as name, dimension, and class
+---
+class: center, middle
+### *Activity: Read in and explore a built-in dataset*
+```{r}
+iris <- iris
+```
+---
+# Vectors and Variables
+
+The assignment function: <- or -> (shortcut is Alt + _ )
+
+Using the assignment function creates named objects in your environment that you can use in your code.
+
+### *Activity: Create variables and vectors*
+
+```{r}
+
+today <- Sys.Date()
+
+months <- 12
+
+total <- c(6,45,21,34,643,11,865)
+
+```
+---
+# Operators
+
+<img src="img/operators.png" height= 200>
+
+### *Activity: Complete a calculation to create a variable*
+
+```{r}
+amount <- 12+4
+
+x <-  months * total
+
+```
+---
+# Functions
+Functions automate common tasks and calculations.
+
+*hint: Cheatsheet as a help resource (see RStudio Help menu for a drop down option)*
+
+Common Functions:
+```{r eval=FALSE}
+
+sum() #add
+mean() #average
+min() #minimum value
+max() #maximum value
+n() #count of values
+
+
+select() #chooses which columns
+filter() #chooses which rows
+mutate() #creates and modifies columns
+group_by() #groups together for summarizing
+summarize() #summarizes based on groups
+
+```
+---
+# Piping
+
+The pipe (%>%) operator allows you to string a series of functions together into a code block.
+
+%>% is the equivalent of saying "...and then do..." between instructions.
+
+Shortcut is Cntl+Shift+m
+
+```{r}
+iris %>% 
+  select(Species, Petal.Width) %>% 
+  filter(Species == "setosa") %>% 
+  slice_sample(n=10)
+  
+
+```
+---
+# Grouping and Summarizing
+
+Grouping and summarizing data in categories is often required.
+
+If the intent is to visualize the data, save the output as an object.
+
+```{r}
+(iris %>% 
+  group_by(Species) %>% 
+  summarize(Total=n(),
+            Mean=mean(Petal.Width)) ->species_summary)
+
+```
+
+---
+class: inverse, center, middle
+
+# Visualization
+<img src="img/ggplot2.svg" height= 500>
+
+---
+# Key Components
+
+### Every ggplot2 plot has 3 key components
+
+1.  Data
+
+1.  Aesthetic mappings between variables inthe data and visual properties
+
+1.  At least one layer describing how to render each observation (usually with a geom function)
+---
+# Activity: Create graphs
+Create a point graph using the mpg dataset
+```{r fig.width=7, fig.height=5 }
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point()
+
+```
+---
+Create a histogram
+```{r fig.width=7, fig.height=5}
+ggplot(mpg, aes(displ)) + 
+  geom_histogram(binwidth = 0.5)
+```
+---
+Create a barplot
+
+```{r fig.width=7, fig.height=5}
+ggplot(mpg, aes(manufacturer)) + 
+  geom_bar()
+```
+
+---
+# Customizing visualizations
+- colour / fill
+- facet
+- labels
+- size
+- shapes
+- themes
+---
+# Layered demo
+
+```{r warning=FALSE, message=FALSE}
+
+ggplot(data=iris, aes(Sepal.Length, y=Sepal.Width, color=Species)) + 
+  geom_point(aes(shape=Species), size=1.5) + 
+  geom_smooth(method="lm") +
+  xlab("Sepal Length") + 
+  ylab("Sepal Width") + 
+  ggtitle("Faceting")+
+  facet_grid(. ~ Species)->faceted
+
+```
+---
+```{r fig.width=9, fig.height=7, warning=FALSE, message=FALSE}
+faceted
+```
+---
+class: inverse, center, middle
+
+# Reshaping Datasets, Dates, & Strings
+<img src="img/lubridate.svg" height= 300>
+<img src="img/stringr.svg" height= 300>
+---
+# Pivoting
+
+Often operational data is not in a tidy format and needs to be reshaped before it can be more easily used.
+
+Example:
+```{r warning=FALSE, message=FALSE}
+(data <- read_csv("untidy_data.csv"))
+
+```
+---
+### Pivot Longer
+
+```{r}
+data %>% 
+  pivot_longer(cols=c(-...1), 
+               names_to = "Year", 
+               values_to = "Values")
+
+```
+---
+### Dates
+
+If a date column isn't automatically recognized, a character or numeric column will need to be converted to a date format.
+
+
+```{r warning=FALSE, message=FALSE}
+library(lubridate)
+
+(sample_sick_data <- read_csv("sample_sick_data.csv"))
+```
+---
+**Replace the full event date with just the year **
+```{r}
+sample_sick_data %>% 
+  mutate(`Event Date`= year(`Event Date`))
+
+```
+
+---
+### Strings
+
+Filter for values that contain a specific string
+```{r}
+sample_sick_data %>% 
+  filter(str_detect(`Function Category`, "SIE"))
+
+```
+---
+class: inverse, center, middle
+
+# Individual Projects
+
+---
+class: inverse, center, middle
+
+<img src="img/GitHub.png" height= 200>
+
+Demo of how to access and download resources from GitHub
+
+---
+# Additional Resources
+    - R for Data Science 
+      (https://r4ds.had.co.nz/index.html)
+    
+    - R Graphics Cookbook 
+      (https://r-graphics.org/)
+      
+    - ggplot2: Elegant Graphics for Data Analysis 
+      (https://ggplot2-book.org/index.html)
+      
+    - RStudio Cheat Sheets
+
+    - Twitter 
+      (@rstudiotips, @rweekly_org, @R-LadiesGlobal, @WeAreRLadies, 
+        @drob, @Rbloggers, @RLangTip, #rstats, #30DayChartChallenge)
+
+    - YouTube
+
+    - Stack Overflow

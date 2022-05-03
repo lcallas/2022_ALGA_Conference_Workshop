@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Introduction to R for Auditors</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Lisa Callas" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to R for Auditors
+## 2022 ALGA Annual Conference Workshop
+### Lisa Callas
+### City of Edmonton
+### 2022/05/04
+
+---
+
+
+
+
+
+
+
+# Objectives
+
+  1. Be able to import and conduct basic analytics using your own (simple!) data in RStudio
+  
+  1. Be able to set up a model working paper in RStudio to align to auditing standards
+  
+  1. Be able to create print-worthy visualizations using ggplot2
+
+---
+
+# Introductions
+
+.pull-left[
+### Lisa Callas
+
+Former Internal Auditor with the City of Edmonton
+
+Sr. Human Resources Business Partner
+
+Instructor with NorQuest College
+
+**Tools:**
+- R &amp; RStudio
+- Excel
+- Google Sheets
+- Google Data Studio
+- Database design
+]
+
+.pull-right[
+### Vince Callas
+
+IT Analyst with Alberta Health Services
+
+
+**Tools:**
+- Tableau
+- SQL 
+- General Hardware and Software Support
+]
+---
+# Agenda
+  1. Overview of programming and RStudio
+  
+  1. Planning your analysis and creating an integrated working paper
+  
+  1. Basic data manipulation and visualization using a built-in data set
+  
+  1. Reshaping data sets, working with dates and strings
+  
+  1. Individual project development and support
+  
+---
+class: inverse, center, middle
+
+# Programming &amp; RStudio
+
+---
+# Programming vs. Excel
+
+.pull-left[
+### Telling
+&lt;img src="img/tell.svg" width=300, height = 400&gt;
+
+
+]
+
+.pull-right[
+### Doing
+&lt;img src= "img/doing.svg" width=300, height = 400&gt;
+
+
+]
+
+---
+# Benefits
+- Free
+- Open source
+- Supportive user community
+- Robust learning resources
+
+---
+# R &amp; RStudio
+
+.pull-left[
+### R is the Engine
+&lt;img src="img/engine.svg" width=300, height = 400&gt;
+
+
+]
+
+.pull-right[
+### RStudio is the Dashboard
+&lt;img src= "img/dashboard.svg" width=300, height = 400&gt;
+
+
+]
+---
+# Installation
+
+R: https://www.r-project.org/
+
+RStudio: https://www.rstudio.com/products/rstudio/download/
+
+RStudio Cloud: https://rstudio.cloud/
+
+
+---
+# Navigating RStudio
+
+&lt;img src= "img/navigation.png"&gt;
+---
+# Packages
+
+Packages are programming extensions that contain code, data and documentation in a consistent format.
+.pull-left[
+&lt;img src="img/tidyverse.svg" width=300, height = 200&gt;
+]
+&lt;img src="img/dplyr.svg" width=230, height = 200&gt;
+&lt;img src="img/ggplot2.svg" width=150, height = 200&gt;
+&lt;img src="img/stringr.svg" width=150, height = 200&gt;
+&lt;img src="img/lubridate.svg" width=150, height = 200&gt;
+
+
+---
+class: center, middle
+# ...like a book
+
+Think about packages like a book.
+
+To use the information in a book, first you must buy the book (install.package("package_name")), then you have to open it up every time you want to reference anything in it (library(package_name)).
+
+
+```r
+library(tidyverse)
+```
+
+---
+class: inverse, center, middle
+
+# Planning Your Analysis and Working Paper
+
+---
+# Directories &amp; Projects
+
+A directory in RStudio is the default location where R will look for your files and save your scripts.  
+
+You can define a working directory to keep all of your files and scripts together in a folder on your computer (in the same way you'd set up a folder to keep related documents together).
+
+Projects are associated with working directories. When you start a new project in RStudio and define it's path, that becomes your working directory for the project where RStudio will look for and save your files.
+
+ 
+### _Activity: Set up a new project_
+---
+
+# R Script
+
+.pull-left[
+### Benefits
+- Miminal set up
+
+- Can be 'called' and reused modularly
+
+- Simple
+]
+
+.pull-right[
+### Challenges
+- All integrated documentation is through #commenting
+
+- Requires re-running each time to see output
+
+]
+---
+# R Markdown
+
+.pull-left[
+### Benefits
+- Commentary, code, and results are integrated into a single document
+
+- Output can be in .pdf, .html, or .doc 
+
+- Can create a fully comprehensive working paper
+]
+
+.pull-right[
+### Challenges
+- Requires some additional planning and set up
+
+- Additional learning curve working with code chunks to ensure the desired output
+
+- Requires some additional troubleshooting for errors and technical problems 'knitting' documents 
+]
+---
+class: center, middle
+### _Activity: Create a a new R Markdown document, and a new script in your project_
+
+Helpful hint: When closing your scripts, save your scripts but **DO NOT SAVE** the workspace.
+---
+# Work Structure &amp; Sequencing
+  - **Sequential processing:** Your code will run in the sequence it is written.
+
+  - **Comments:** Add comments to your code by using #
+  
+  - **Script headers:** Best practice is to include a script header on your R scripts. Rmarkdown documents may not need an explanatory header depending on the design of the working paper.
+  
+  - **Snippets:** You can custom design snippets (little pieces of code or comments) to support consistency in your scripts. These are great shortcuts for script headers and script sections.
+
+  - **Libraries:** Best practice is to include your libraries at the beginning of your code - but this is not required.
+---
+class: left, middle
+### _Activity: Format your R Script_
+- Set up a header snippet
+- Insert a header
+- Install and call libraries
+---
+class: inverse, center, middle
+
+# Tidyverse
+&lt;img src="img/tidyverse.svg" height= 500&gt;
+---
+class: inverse, center, middle
+
+# Data Manipulation
+&lt;img src="img/dplyr.svg" height= 500&gt;
+---
+# Tidy Data
+&lt;img src="img/tidydata_1.jpg" height= 400&gt;
+
+.footnote[
+Artwork by @alisonhorst
+]
+
+---
+class: center, middle
+
+&lt;img src="img/tidydata_3.jpg" height= 500&gt;
+
+.footnote[
+Artwork by @alisonhorst
+]
+---
+# Built-in Datasets
+
+- Base R has a number of built in datasets.
+
+- Additionally, almost all packages come with built in datasets.
+
+- Often the online help for using functions is demonstrated on these built in datasets so that you can reproduce the same demo in your own script and get identical results.
+
+- Built-in data has typically be cleansed and is tidy.
+---
+class:  center, middle
+### *Activity: List the Built-in Datasets &amp; Call a Few to Explore*
+
+
+```r
+data()
+
+Titanic
+iris
+mtcars
+```
+
+---
+# Data Structures and Types
+
+.pull-left[
+**Structures:**
+- **vector**: a sequence of data elements of the same basic type
+- **data frame**: a table or 2 dimensional array-like structure
+- **factor**: a variable used to categorize data with a limited number of values
+- **list**: objects that contain elements of different types
+- **matrix**: 2 dimensional, homogenous data structure. Single data type
+]
+.pull-right[
+**Types:**
+- character
+- numeric
+- integer
+- logical
+- complex
+]
+
+Objects may have attributes such as name, dimension, and class
+---
+class: center, middle
+### *Activity: Read in and explore a built-in dataset*
+
+```r
+iris &lt;- iris
+```
+---
+# Vectors and Variables
+
+The assignment function: &lt;- or -&gt; (shortcut is Alt + _ )
+
+Using the assignment function creates named objects in your environment that you can use in your code.
+
+### *Activity: Create variables and vectors*
+
+
+```r
+today &lt;- Sys.Date()
+
+months &lt;- 12
+
+total &lt;- c(6,45,21,34,643,11,865)
+```
+---
+# Operators
+
+&lt;img src="img/operators.png" height= 200&gt;
+
+### *Activity: Complete a calculation to create a variable*
+
+
+```r
+amount &lt;- 12+4
+
+x &lt;-  months * total
+```
+---
+# Functions
+Functions automate common tasks and calculations.
+
+*hint: Cheatsheet as a help resource (see RStudio Help menu for a drop down option)*
+
+Common Functions:
+
+```r
+sum() #add
+mean() #average
+min() #minimum value
+max() #maximum value
+n() #count of values
+
+
+select() #chooses which columns
+filter() #chooses which rows
+mutate() #creates and modifies columns
+group_by() #groups together for summarizing
+summarize() #summarizes based on groups
+```
+---
+# Piping
+
+The pipe (%&gt;%) operator allows you to string a series of functions together into a code block.
+
+%&gt;% is the equivalent of saying "...and then do..." between instructions.
+
+Shortcut is Cntl+Shift+m
+
+
+```r
+iris %&gt;% 
+  select(Species, Petal.Width) %&gt;% 
+  filter(Species == "setosa") %&gt;% 
+  slice_sample(n=10)
+```
+
+```
+##    Species Petal.Width
+## 1   setosa         0.2
+## 2   setosa         0.2
+## 3   setosa         0.2
+## 4   setosa         0.2
+## 5   setosa         0.2
+## 6   setosa         0.2
+## 7   setosa         0.2
+## 8   setosa         0.1
+## 9   setosa         0.2
+## 10  setosa         0.1
+```
+---
+# Grouping and Summarizing
+
+Grouping and summarizing data in categories is often required.
+
+If the intent is to visualize the data, save the output as an object.
+
+
+```r
+(iris %&gt;% 
+  group_by(Species) %&gt;% 
+  summarize(Total=n(),
+            Mean=mean(Petal.Width)) -&gt;species_summary)
+```
+
+```
+## # A tibble: 3 x 3
+##   Species    Total  Mean
+##   &lt;fct&gt;      &lt;int&gt; &lt;dbl&gt;
+## 1 setosa        50 0.246
+## 2 versicolor    50 1.33 
+## 3 virginica     50 2.03
+```
+
+---
+class: inverse, center, middle
+
+# Visualization
+&lt;img src="img/ggplot2.svg" height= 500&gt;
+
+---
+# Key Components
+
+### Every ggplot2 plot has 3 key components
+
+1.  Data
+
+1.  Aesthetic mappings between variables inthe data and visual properties
+
+1.  At least one layer describing how to render each observation (usually with a geom function)
+---
+# Activity: Create graphs
+Create a point graph using the mpg dataset
+
+```r
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point()
+```
+
+![](Workshop_slides_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+---
+Create a histogram
+
+```r
+ggplot(mpg, aes(displ)) + 
+  geom_histogram(binwidth = 0.5)
+```
+
+![](Workshop_slides_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+---
+Create a barplot
+
+
+```r
+ggplot(mpg, aes(manufacturer)) + 
+  geom_bar()
+```
+
+![](Workshop_slides_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+---
+# Customizing visualizations
+- colour / fill
+- facet
+- labels
+- size
+- shapes
+- themes
+---
+# Layered demo
+
+
+```r
+ggplot(data=iris, aes(Sepal.Length, y=Sepal.Width, color=Species)) + 
+  geom_point(aes(shape=Species), size=1.5) + 
+  geom_smooth(method="lm") +
+  xlab("Sepal Length") + 
+  ylab("Sepal Width") + 
+  ggtitle("Faceting")+
+  facet_grid(. ~ Species)-&gt;faceted
+```
+---
+
+```r
+faceted
+```
+
+![](Workshop_slides_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+---
+class: inverse, center, middle
+
+# Reshaping Datasets, Dates, &amp; Strings
+&lt;img src="img/lubridate.svg" height= 300&gt;
+&lt;img src="img/stringr.svg" height= 300&gt;
+---
+# Pivoting
+
+Often operational data is not in a tidy format and needs to be reshaped before it can be more easily used.
+
+Example:
+
+```r
+(data &lt;- read_csv("untidy_data.csv"))
+```
+
+```
+## # A tibble: 7 x 9
+##   ...1                   `2015` `2016` `2017` `2018` `2019` `2020` `2021` `2022`
+##   &lt;chr&gt;                   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 Human Resources         14791  10835  14746   5650   6584  18874   1120  10685
+## 2 Financial Services       5919  14645   1074  15281   9322  17813   8716   9747
+## 3 City Operations          8013  13441   5863  12980    297   2113  10835  10278
+## 4 Community Services       4093   7544   3135   5964  14101  15858  12259  18600
+## 5 Office of the City Ma~   7088  14643  19856   9497  17651  11994   3803  11263
+## 6 Legal and Risk Manage~   5267   2336  16924  19485   6907  19239   6082  12116
+## 7 Boards and Commissions   8337   4945  11687  11579   8875  16856  10400  17811
+```
+---
+### Pivot Longer
+
+
+```r
+data %&gt;% 
+  pivot_longer(cols=c(-...1), 
+               names_to = "Year", 
+               values_to = "Values")
+```
+
+```
+## # A tibble: 56 x 3
+##    ...1               Year  Values
+##    &lt;chr&gt;              &lt;chr&gt;  &lt;dbl&gt;
+##  1 Human Resources    2015   14791
+##  2 Human Resources    2016   10835
+##  3 Human Resources    2017   14746
+##  4 Human Resources    2018    5650
+##  5 Human Resources    2019    6584
+##  6 Human Resources    2020   18874
+##  7 Human Resources    2021    1120
+##  8 Human Resources    2022   10685
+##  9 Financial Services 2015    5919
+## 10 Financial Services 2016   14645
+## # ... with 46 more rows
+```
+---
+### Dates
+
+If a date column isn't automatically recognized, a character or numeric column will need to be converted to a date format.
+
+
+
+```r
+library(lubridate)
+
+(sample_sick_data &lt;- read_csv("sample_sick_data.csv"))
+```
+
+```
+## # A tibble: 94,822 x 3
+##    `Event Date` `Hours Absent` `Function Category`              
+##    &lt;date&gt;                &lt;dbl&gt; &lt;chr&gt;                            
+##  1 2021-11-23             8    SI - STD Pay @ 100%              
+##  2 2021-11-24             8    SIE - STD Pay @ 100% Incident End
+##  3 2021-02-26             6.75 SIE - STD Pay @ 100% Incident End
+##  4 2021-06-24             6.75 SIE - STD Pay @ 100% Incident End
+##  5 2021-12-15             6.75 SI - STD Pay @ 100%              
+##  6 2021-12-16             6.75 SI - STD Pay @ 100%              
+##  7 2021-12-17             6.75 SIE - STD Pay @ 100% Incident End
+##  8 2021-08-27             7.5  SIE - STD Pay @ 100% Incident End
+##  9 2021-07-20            10    SIE - STD Pay @ 100% Incident End
+## 10 2021-01-15            10    SI - STD Pay @ 100%              
+## # ... with 94,812 more rows
+```
+---
+**Replace the full event date with just the year **
+
+```r
+sample_sick_data %&gt;% 
+  mutate(`Event Date`= year(`Event Date`))
+```
+
+```
+## # A tibble: 94,822 x 3
+##    `Event Date` `Hours Absent` `Function Category`              
+##           &lt;dbl&gt;          &lt;dbl&gt; &lt;chr&gt;                            
+##  1         2021           8    SI - STD Pay @ 100%              
+##  2         2021           8    SIE - STD Pay @ 100% Incident End
+##  3         2021           6.75 SIE - STD Pay @ 100% Incident End
+##  4         2021           6.75 SIE - STD Pay @ 100% Incident End
+##  5         2021           6.75 SI - STD Pay @ 100%              
+##  6         2021           6.75 SI - STD Pay @ 100%              
+##  7         2021           6.75 SIE - STD Pay @ 100% Incident End
+##  8         2021           7.5  SIE - STD Pay @ 100% Incident End
+##  9         2021          10    SIE - STD Pay @ 100% Incident End
+## 10         2021          10    SI - STD Pay @ 100%              
+## # ... with 94,812 more rows
+```
+
+---
+### Strings
+
+Filter for values that contain a specific string
+
+```r
+sample_sick_data %&gt;% 
+  filter(str_detect(`Function Category`, "SIE"))
+```
+
+```
+## # A tibble: 11,041 x 3
+##    `Event Date` `Hours Absent` `Function Category`              
+##    &lt;date&gt;                &lt;dbl&gt; &lt;chr&gt;                            
+##  1 2021-11-24             8    SIE - STD Pay @ 100% Incident End
+##  2 2021-02-26             6.75 SIE - STD Pay @ 100% Incident End
+##  3 2021-06-24             6.75 SIE - STD Pay @ 100% Incident End
+##  4 2021-12-17             6.75 SIE - STD Pay @ 100% Incident End
+##  5 2021-08-27             7.5  SIE - STD Pay @ 100% Incident End
+##  6 2021-07-20            10    SIE - STD Pay @ 100% Incident End
+##  7 2021-01-18            14    SIE - STD Pay @ 100% Incident End
+##  8 2021-07-05            10    SIE - STD Pay @ 100% Incident End
+##  9 2021-11-28            14    SIE - STD Pay @ 100% Incident End
+## 10 2021-02-12             8    SIE - STD Pay @ 100% Incident End
+## # ... with 11,031 more rows
+```
+---
+class: inverse, center, middle
+
+# Individual Projects
+
+---
+class: inverse, center, middle
+
+&lt;img src="img/GitHub.png" height= 200&gt;
+
+Demo of how to access and download resources from GitHub
+
+---
+# Additional Resources
+    - R for Data Science 
+      (https://r4ds.had.co.nz/index.html)
+    
+    - R Graphics Cookbook 
+      (https://r-graphics.org/)
+      
+    - ggplot2: Elegant Graphics for Data Analysis 
+      (https://ggplot2-book.org/index.html)
+      
+    - RStudio Cheat Sheets
+
+    - Twitter 
+      (@rstudiotips, @rweekly_org, @R-LadiesGlobal, @WeAreRLadies, 
+        @drob, @Rbloggers, @RLangTip, #rstats, #30DayChartChallenge)
+
+    - YouTube
+
+    - Stack Overflow
+
+---
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
